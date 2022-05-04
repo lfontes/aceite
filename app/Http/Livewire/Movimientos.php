@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use App\Models\Movimiento;
 use App\Models\Cliente;
 
@@ -15,22 +16,37 @@ class Movimientos extends Component
     public $selected_id, $keyWord, $cliente_id, $tipo_mov, $detalle, $cantidad, $fecha;
     public $updateMode = false;
     
+    public function subtotal() {
+        return DB::table('movimientos')->sum('cantidad');
+    }
 
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
+       
+
         return view('livewire.movimientos.view', [
             'movimientos' => Movimiento::latest()
 						->orWhere('cliente_id', 'LIKE', $keyWord)
-						->orWhere('tipo_mov', 'LIKE', $keyWord)
+						//->orWhere('tipo_mov', 'LIKE', $keyWord)
 						->orWhere('detalle', 'LIKE', $keyWord)
-						->orWhere('cantidad', 'LIKE', $keyWord)
-						->orWhere('fecha', 'LIKE', $keyWord)
+						//->orWhere('cantidad', 'LIKE', $keyWord)
+						//->orWhere('fecha', 'LIKE', $keyWord)
+                        ->orWhereHas('cliente',function($query) use($keyWord){
+                            $query->where('nombre','LIKE', $keyWord);
+                        })
 						->paginate(10),
             'clientes' => Cliente::all(),
+            'tott' => Movimiento::where('cliente_id', 'LIKE', $keyWord)
+                                ->orWhereHas('cliente',function($query) use($keyWord){
+                                    $query->where('nombre','LIKE', $keyWord);
+                                })
+                                ->sum('cantidad')
+            
+
         ]);
     }
-	
+
     public function cancel()
     {
         $this->resetInput();

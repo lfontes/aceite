@@ -25,16 +25,8 @@
 			@else
 					Hi {{ Auth::user()->name }}, Welcome back to {{ config('app.name', 'Laravel') }}.
 
-                    <div><h1>Test</h1>
-                        <x-date-picker
-                        wire:model="fecha"
-                        id="datepicker"
-                        autocomplete="off"
-                     />
-
-                     
-                    </div>
-                    
+                   
+                    <input type="date" id="fechatest"/>
                    
             @endif	
 				</h5>

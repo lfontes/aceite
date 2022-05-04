@@ -33,6 +33,7 @@
 							<tr> 
 								<td>#</td> 
 								<th>Cliente Id</th>
+								<th>Nombre</th>
 								<th>Tipo Mov</th>
 								<th>Detalle</th>
 								<th>Cantidad</th>
@@ -45,10 +46,11 @@
 							<tr>
 								<td>{{ $loop->iteration }}</td> 
 								<td>{{ $row->cliente_id }}</td>
+								<td>{{ $row->cliente->nombre }}</td>
 								<td>{{ $row->tipo_mov }}</td>
 								<td>{{ $row->detalle }}</td>
 								<td>{{ $row->cantidad }}</td>
-								<td>{{ $row->fecha }}</td>
+								<td>{{ $row->fecha }}</td>													
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +64,10 @@
 								</td>
 							@endforeach
 						</tbody>
-					</table>						
+					</table>
+					<div class="card-footer">
+						<p class="strong">{{ $tott }} </p>
+					</div>						
 					{{ $movimientos->links() }}
 					</div>
 				</div>

@@ -14,5 +14,17 @@ class Cliente extends Model
     protected $table = 'clientes';
 
     protected $fillable = ['cod_fca','nombre','domicilio','telefono','email','contacto'];
+
+   
+
+    /**
+     * Get all of the movimientos for the Cliente
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function movimientos()
+    {
+        return $this->hasMany(Movimiento::class, 'cliente_id', 'id');
+    }
 	
 }

@@ -23,7 +23,10 @@
             </div>
             <div class="form-group">
                 <label for="tipo_mov"></label>
-                <input wire:model="tipo_mov" type="text" class="form-control" id="tipo_mov" placeholder="Tipo Mov">@error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
+                <select wire:model="tipo_mov" type="text" class="form-control" id="tipo_mov" placeholder="Tipo Mov">@error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
+                    <option value="alta">Alta</option>
+                    <option value="baja">Baja</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="detalle"></label>
@@ -34,11 +37,9 @@
                 <input wire:model="cantidad" type="text" class="form-control" id="cantidad" placeholder="Cantidad">@error('cantidad') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
-            <x-date-picker wire:model="fecha" id="fecha"/>
-
             <div class="form-group">
                 <label for="fecha"></label>
-                <input wire:model="fecha" type="text" class="form-control datepicker" id="fecha" placeholder="Fecha">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="fecha" type="date" class="form-control datepicker" id="fecha" placeholder="Fecha">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>
