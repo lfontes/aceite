@@ -38,6 +38,7 @@
 								<th>Telefono</th>
 								<th>Email</th>
 								<th>Contacto</th>
+								<th>RUT</th>
 								<td>ACTIONS</td>
 							</tr>
 						</thead>
@@ -51,6 +52,7 @@
 								<td>{{ $row->telefono }}</td>
 								<td>{{ $row->email }}</td>
 								<td>{{ $row->contacto }}</td>
+								<td>{{ $row->rut }}</td>
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

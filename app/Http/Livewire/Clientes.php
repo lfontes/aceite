@@ -25,6 +25,7 @@ class Clientes extends Component
 						->orWhere('telefono', 'LIKE', $keyWord)
 						->orWhere('email', 'LIKE', $keyWord)
 						->orWhere('contacto', 'LIKE', $keyWord)
+                        ->orWhere('rut', 'LIKE', $keyWord)
 						->paginate(10),
         ]);
     }
@@ -43,6 +44,7 @@ class Clientes extends Component
 		$this->telefono = null;
 		$this->email = null;
 		$this->contacto = null;
+        $this->rut = null;
     }
 
     public function store()
@@ -62,7 +64,8 @@ class Clientes extends Component
 			'domicilio' => $this-> domicilio,
 			'telefono' => $this-> telefono,
 			'email' => $this-> email,
-			'contacto' => $this-> contacto
+			'contacto' => $this-> contacto,
+            'rut' => $this-> rut
         ]);
         
         $this->resetInput();
@@ -81,6 +84,7 @@ class Clientes extends Component
 		$this->telefono = $record-> telefono;
 		$this->email = $record-> email;
 		$this->contacto = $record-> contacto;
+        $this->rut = $record-> rut;
 		
         $this->updateMode = true;
     }
@@ -104,7 +108,9 @@ class Clientes extends Component
 			'domicilio' => $this-> domicilio,
 			'telefono' => $this-> telefono,
 			'email' => $this-> email,
-			'contacto' => $this-> contacto
+			'contacto' => $this-> contacto,
+            'rut' => $this-> rut
+
             ]);
 
             $this->resetInput();

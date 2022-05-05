@@ -34,6 +34,10 @@
                 <label for="contacto"></label>
                 <input wire:model="contacto" type="text" class="form-control" id="contacto" placeholder="Contacto">@error('contacto') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
+            <div class="form-group">
+                <label for="RUT"></label>
+                <input wire:model="rut" type="text" class="form-control" id="rut" placeholder="RUT">@error('RUT') <span class="error text-danger">{{ $message }}</span> @enderror
+            </div>
 
                 </form>
             </div>

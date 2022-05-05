@@ -13,7 +13,7 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 
-    protected $fillable = ['cod_fca','nombre','domicilio','telefono','email','contacto'];
+    protected $fillable = ['cod_fca','nombre','domicilio','telefono','email','contacto','rut'];
 
    
 

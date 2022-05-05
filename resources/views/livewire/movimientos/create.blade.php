@@ -42,7 +42,7 @@
                 <input wire:model="fecha" type="date" class="form-control datepicker" id="fecha" placeholder="Fecha">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
-                </form>
+                </form>ap
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
