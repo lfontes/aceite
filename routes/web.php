@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Mermas;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,9 @@ Route::middleware([
     Route::get('/movimientos', function(){
         return view('livewire.movimientos.index');
     })->name('movimientos');
-    
+
+    Route::get('/mermas', [Mermas::class, 'index']);
+    Route::post('/mermasstore', [Mermas::class, 'mermasstore']);
 });
 
 

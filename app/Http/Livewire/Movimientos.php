@@ -72,11 +72,15 @@ class Movimientos extends Component
 		'fecha' => 'required',
         ]);
 
+        if ($this->tipo_mov == "baja") {
+            $this->cantidad = $this->cantidad * -1;
+        }
+
         Movimiento::create([ 
 			'cliente_id' => $this-> cliente_id,
 			'tipo_mov' => $this-> tipo_mov,
 			'detalle' => $this-> detalle,
-			'cantidad' => $this-> cantidad,
+			'cantidad' =>  $this-> cantidad,
 			'fecha' => $this-> fecha
         ]);
         
