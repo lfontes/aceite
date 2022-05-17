@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Cliente;
 use App\Models\Movimiento;
 
@@ -13,13 +14,30 @@ class Mermas extends Controller
         return view('mermas.index', compact('clientes'));
     }
 
-
+    public function aplicaratodos(Request $request){
+        
+         if ($request->todos == "on") {
+             $clientes = Cliente::all();
+             //dd($clientes);
+             foreach ($clientes as $cliente) {
+                $request->cliente_id = $cliente->id;
+                $this->mermasstore($request);
+             }
+         } else {
+             $this->mermasstore($request);
+         }
+         return redirect('/movimientos');
+    }
 
     public function mermasstore(Request $request){
         
-        $cliente_stock = Movimiento::find(1)->sum('cantidad');      
+        $cliente_stock = DB::table('movimientos')
+                ->where('cliente_id', $request->cliente_id)
+                ->sum('cantidad'); 
+
+       // $cliente_stock = Movimiento::stock($request->cliente_id);
         $cantidad =  - ($cliente_stock * intval($request->input('porcentaje')) /100);
-       //dd($cliente_stock ,$request->porcentaje, $cantidad);
+       //dd($request->cliente_id, $cliente_stock ,$request->porcentaje, $cantidad);
         
         Movimiento::create([ 
 			'cliente_id' => $request-> cliente_id,
@@ -28,6 +46,7 @@ class Mermas extends Controller
 			'cantidad' => $cantidad,
 			'fecha' => today()
         ]);
+        return redirect('/movimientos');
     }
 
     /*  TO DO

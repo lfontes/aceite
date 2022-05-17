@@ -36,7 +36,7 @@ Route::middleware([
     })->name('movimientos');
 
     Route::get('/mermas', [Mermas::class, 'index']);
-    Route::post('/mermasstore', [Mermas::class, 'mermasstore']);
+    Route::post('/aplicaratodos', [Mermas::class, 'aplicaratodos']);
 });
 
 

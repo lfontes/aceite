@@ -35,7 +35,7 @@ class Movimientos extends Component
                         ->orWhereHas('cliente',function($query) use($keyWord){
                             $query->where('nombre','LIKE', $keyWord);
                         })
-						->paginate(10),
+						->paginate(25),
             'clientes' => Cliente::all(),
             'tott' => Movimiento::where('cliente_id', 'LIKE', $keyWord)
                                 ->orWhereHas('cliente',function($query) use($keyWord){
@@ -136,4 +136,6 @@ class Movimientos extends Component
             $record->delete();
         }
     }
+
+    
 }

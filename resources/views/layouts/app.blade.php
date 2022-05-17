@@ -27,6 +27,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <x-jet-application-logo style="width: 64px;" />
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -44,6 +45,11 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ route('clientes') }}">{{ __('Clientes') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/mermas') }}" ><i class="fab fa-laravel text-info"></i> Mermas</a> 
+                        </li>
+
                     </ul>
 					@endauth()
 					
