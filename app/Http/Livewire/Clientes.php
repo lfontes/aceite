@@ -11,7 +11,7 @@ class Clientes extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $cod_fca, $nombre, $domicilio, $telefono, $email, $contacto;
+    public $selected_id, $keyWord, $cod_fca, $nombre, $domicilio, $telefono, $email, $contacto, $rut;
     public $updateMode = false;
 
     public function render()

@@ -12,7 +12,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="Porcentaje %"><strong>Porsentaje %</strong></label>
+                        <label for="Porcentaje %"><strong>Porcentaje %</strong></label>
                         <input type="number" class="form-control col-md-2" id="porcentaje" name="porcentaje"
                             placeholder="Ingrese %">
                         @error('poncentaje')

@@ -12,8 +12,8 @@
 						@if (session()->has('message'))
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
 						@endif
-						<div>
-							<input wire:model='keyWord' type="text" class="form-control md-col-4 d-print-none" name="search" id="search" placeholder="Buscar por nombre">
+						<div class="md-col-6">
+							<input wire:model='keyWord' type="text" class="form-control md-col-6 d-print-none" name="search" id="search" placeholder="Buscar por nombre">
 						</div>
 						<div class="btn btn-sm btn-info d-print-none" data-toggle="modal" data-target="#createDataModal">
 						<i class="fa fa-plus"></i>  Agregar Movimiento
@@ -35,7 +35,7 @@
 								<th>Detalle</th>
 								<th>Cantidad</th>
 								<th>Fecha</th>
-								<td class="d-print-none">ACTIONS</td>
+								<td class="d-print-none">Acciones</td>
 							</tr>
 						</thead>
 						<tbody>
