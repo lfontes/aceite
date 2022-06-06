@@ -13,17 +13,18 @@
             <div class="form-group">
                 <label for="cliente_id"></label>
              
-              <select wire:model="cliente_id" name="cliente" class="p-2 bg-white">
-                <option value=''>Elija un cliente</option>
+              <select wire:model="cliente_id" name="cliente" class="form-control">
+                <option value=""  selected>Elija un cliente</option>
                 @foreach($clientes as $cliente)
                     <option value={{ $cliente->id }}>{{ $cliente->nombre }}</option>
                 @endforeach
             </select>
-                <input wire:model="cliente_id" type="text" class="form-control" id="cliente_id" placeholder="Cliente Id">@error('cliente_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="cliente_id" type="hidden" class="form-control" id="cliente_id" placeholder="Cliente Id">@error('cliente_id') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="tipo_mov"></label>
                 <select wire:model="tipo_mov" type="text" class="form-control" id="tipo_mov" placeholder="Tipo Mov">@error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
+                    <option value=""  selected>Elija tipo de movimiento</option>
                     <option value="alta">Alta</option>
                     <option value="baja">Baja</option>
                 </select>
@@ -42,7 +43,7 @@
                 <input wire:model="fecha" type="date" class="form-control datepicker" id="fecha" placeholder="Fecha">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
-                </form>ap
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>

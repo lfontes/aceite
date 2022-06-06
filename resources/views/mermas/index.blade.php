@@ -22,7 +22,7 @@
 
                     <div class="form-group">
                         <label for="cliente"><strong>Cliente</strong></label>
-                        <select wire:model="cliente_id" name="cliente_id" class="p-10 col-md-4 bg-white">
+                        <select wire:model="cliente_id" name="cliente_id" class="form-control col-md-4">
                             <option value=''>Elija un cliente</option>
                             @foreach ($clientes as $cliente)
                                 <option value={{ $cliente->id }}>{{ $cliente->nombre }}</option>
