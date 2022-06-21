@@ -22,15 +22,16 @@
 
                     <div class="form-group">
                         <label for="cliente"><strong>Cliente</strong></label>
-                        <select wire:model="cliente_id" name="cliente_id" class="form-control col-md-4">
-                            <option value=''>Elija un cliente</option>
+                        <select multiple name="multi_cliente[]" class="form-control col-md-4" style="height: 200px;">
                             @foreach ($clientes as $cliente)
                                 <option value={{ $cliente->id }}>{{ $cliente->nombre }}</option>
                             @endforeach
                         </select>
+                        <p>(Seleccionar varios con "CTRL+Click")</p>
                     </div>
+                
                     <div class="form-group">
-                        <label for="todos">Aplicar a todos los clientes</label>
+                        <label for="todos"><strong>Aplicar a todos los clientes</strong></label>
                         <input type="checkbox" name="todos" id="todos">
                     </div>
 
