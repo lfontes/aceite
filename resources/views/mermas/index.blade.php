@@ -46,7 +46,7 @@
                     <div class="card-footer">
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary close-btn"  onclick="location.href='{{ url('/movimientos') }}'">Cancelar</button>
                             <button type="submit" class="btn btn-primary float-right">Aplicar</button>
                         </div>
                     </div>
