@@ -43,7 +43,7 @@ class Mermas extends Controller
         
         Movimiento::create([ 
 			'cliente_id' => $cliente,
-			'tipo_mov' => "baja",
+			'tipo_mov' => "Salida",
 			'detalle' => $request-> detalle,
 			'cantidad' => $cantidad,
 			'fecha' => today()

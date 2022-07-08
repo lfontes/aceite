@@ -72,7 +72,7 @@ class Movimientos extends Component
 		'fecha' => 'required',
         ]);
 
-        if ($this->tipo_mov == "baja") {
+        if ($this->tipo_mov == "Salida") {
             $this->cantidad = $this->cantidad * -1;
         }
 

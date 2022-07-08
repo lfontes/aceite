@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
             $table->integer('cliente_id');
-            $table->enum('tipo_mov', array('alta', 'baja'));
+            $table->enum('tipo_mov', array('Ingreso', 'Salida'));
             $table->string('detalle');
             $table->decimal('cantidad', 8, 2);
             $table->date('fecha');

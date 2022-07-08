@@ -25,8 +25,8 @@
                 <label for="tipo_mov"></label>
                 <select wire:model="tipo_mov" type="text" class="form-control" id="tipo_mov" placeholder="Tipo Mov">@error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
                     <option value=""  selected>Elija tipo de movimiento</option>
-                    <option value="alta">Alta</option>
-                    <option value="baja">Baja</option>
+                    <option value="Ingreso">Ingreso</option>
+                    <option value="Salida">Salida</option>
                 </select>
             </div>
             <div class="form-group">
