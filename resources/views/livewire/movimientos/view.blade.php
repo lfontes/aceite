@@ -67,7 +67,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><strong>TOTAL</strong></td>
+								<td><strong>TOTAL:</strong></td>
 								<td><strong>{{ $tott }} </strong> </td>
 							</tr>
 						</tfoot>

@@ -1,0 +1,6 @@
+#  Hacer consulta de bajas por fecha
+#  Poder sumar las mermas, para agregar a usuario a parte que sea retenciones facultad
+#  Merma todos menos facultad
+_/ Cambiar alta y baja por ingreso y salida
+# Agregar ver movimientos por mes,
+# Las mermas sumarlas a retenciones facultad
