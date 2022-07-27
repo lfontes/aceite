@@ -122,7 +122,7 @@ class Clientes extends Component
     public function destroy($id)
     {
         if ($id) {
-            $record = Cliente::where('id', $id);
+            $record = Cliente::findOrFail($id);
             $record->delete();
         }
     }

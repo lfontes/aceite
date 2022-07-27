@@ -132,7 +132,7 @@ class Movimientos extends Component
     public function destroy($id)
     {
         if ($id) {
-            $record = Movimiento::where('id', $id);
+            $record = Movimiento::findOrFail($id);
             $record->delete();
         }
     }
