@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mermas;
+use App\Http\Controllers\ReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,7 @@ Route::middleware([
 
     Route::get('/mermas', [Mermas::class, 'index']);
     Route::post('/aplicaratodos', [Mermas::class, 'aplicaratodos']);
+    Route::get('/saldos', [ReportController::class, 'saldos']);
 });
 
 

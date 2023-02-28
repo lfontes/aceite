@@ -31,7 +31,7 @@ class Movimientos extends Component
 						//->orWhere('tipo_mov', 'LIKE', $keyWord)
 						->orWhere('detalle', 'LIKE', $keyWord)
 						//->orWhere('cantidad', 'LIKE', $keyWord)
-						//->orWhere('fecha', 'LIKE', $keyWord)
+						->orWhere('fecha', 'LIKE', $keyWord)
                         ->orWhereHas('cliente',function($query) use($keyWord){
                             $query->where('nombre','LIKE', $keyWord);
                         })
@@ -41,7 +41,7 @@ class Movimientos extends Component
                                 ->orWhereHas('cliente',function($query) use($keyWord){
                                     $query->where('nombre','LIKE', $keyWord);
                                 })
-                                ->sum('cantidad')
+                               ->sum('cantidad')
             
 
         ]);
