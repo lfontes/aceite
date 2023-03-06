@@ -49,6 +49,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/mermas') }}" ><i class="fab fa-laravel text-info"></i> Mermas</a> 
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/saldos') }}" ><i class="fab fa-laravel text-info"></i> Saldos PDF</a> 
+                        </li>
 
                     </ul>
 					@endauth()
