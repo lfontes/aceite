@@ -18,8 +18,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- Styles 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 	 @livewireStyles
 </head>

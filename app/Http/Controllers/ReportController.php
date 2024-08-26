@@ -14,7 +14,8 @@ class ReportController extends Controller
         
            
         $clientes = Cliente::withSum('movimientos as total','cantidad')
-                ->groupBy('id')    
+                ->groupBy('id') 
+                ->orderBy('nombre', 'asc')   
                 ->get();
         //$clientes = Movimiento::sum('cantidad as total')->groupBy('cliente_id')->get();
         //$clientes = Cliente::All();

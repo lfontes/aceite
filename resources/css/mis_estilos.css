@@ -1,0 +1,5 @@
+/* formatea la cabecera de la tabla en negrita y centrado */
+.table thead th {
+    font-weight: bold;
+    text-align: center;
+}
