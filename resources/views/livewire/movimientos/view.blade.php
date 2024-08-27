@@ -28,8 +28,8 @@
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
 							<tr> 
-								<td style="width: 30px;">#</td> 
 								<th style="width: 80px;">Cliente Id</th>
+								<th style="width: 80px;">Cod-FCA</th>
 								<th>Nombre</th>
 								<th>Tipo Mov</th>
 								<th>Detalle</th>
@@ -41,13 +41,13 @@
 						<tbody>
 							@foreach($movimientos as $row)
 							<tr>
-								<td>{{ $loop->iteration }}</td> 
 								<td style="text-align: center;">{{ $row->cliente_id }}</td>
+								<td style="text-align: right">{{ $row->cliente->cod_fca }}</td>
 								<td>{{ $row->cliente->nombre }}</td>
-								<td>{{ $row->tipo_mov }}</td>
+								<td style="text-align: center">{{ $row->tipo_mov }}</td>
 								<td>{{ $row->detalle }}</td>
-								<td>{{ $row->cantidad }}</td>
-								<td>{{ $row->fecha }}</td>													
+								<td style="text-align: right">{{ $row->cantidad }}</td>
+								<td style="text-align: right">{{ $row->fecha }}</td>													
 								<td  class="d-print-none" width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,7 +68,7 @@
 								<td></td>
 								<td></td>
 								<td><strong>TOTAL:</strong></td>
-								<td><strong>{{ $tott }} </strong> </td>
+								<td style="text-align: right"><strong>{{ $tott }} </strong> </td>
 							</tr>
 						</tfoot>
 					</table>

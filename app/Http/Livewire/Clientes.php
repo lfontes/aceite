@@ -26,6 +26,7 @@ class Clientes extends Component
 						->orWhere('email', 'LIKE', $keyWord)
 						->orWhere('contacto', 'LIKE', $keyWord)
                         ->orWhere('rut', 'LIKE', $keyWord)
+                        ->orderby('nombre', 'asc')
 						->paginate(10),
         ]);
     }

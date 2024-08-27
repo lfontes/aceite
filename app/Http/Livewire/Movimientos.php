@@ -36,7 +36,7 @@ class Movimientos extends Component
                             $query->where('nombre','LIKE', $keyWord);
                         })
 						->paginate(25),
-            'clientes' => Cliente::all(),
+            'clientes' => Cliente::orderBy('nombre')->get(),
             'tott' => Movimiento::where('cliente_id', 'LIKE', $keyWord)
                                 ->orWhereHas('cliente',function($query) use($keyWord){
                                     $query->where('nombre','LIKE', $keyWord);
