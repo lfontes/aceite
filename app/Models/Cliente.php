@@ -26,5 +26,5 @@ class Cliente extends Model
     {
         return $this->hasMany(Movimiento::class, 'cliente_id', 'id');
     }
-	
+   
 }
