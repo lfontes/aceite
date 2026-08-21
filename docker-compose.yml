@@ -6,19 +6,9 @@ services:
     container_name: aceite_app
     restart: unless-stopped
     ports:
-      - "8000:80"
-    environment:
-      - APP_NAME=Aceite
-      - APP_ENV=local
-      - APP_KEY=base64:/VDqx9Y/bcpx7CyYGxQXI53y2p8Je8cKsOviC7cqMoA=
-      - APP_DEBUG=true
-      - APP_URL=http://localhost:8000
-      - DB_CONNECTION=pgsql
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_DATABASE=aceite
-      - DB_USERNAME=aceite_user
-      - DB_PASSWORD=aceite_pass
+      - "${APP_PORT:-8080}:80"
+    env_file:
+      - .env
     volumes:
       - .:/var/www/html
     depends_on:
@@ -32,15 +22,15 @@ services:
     container_name: aceite_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: aceite
-      POSTGRES_USER: aceite_user
-      POSTGRES_PASSWORD: aceite_pass
+      POSTGRES_DB: ${DB_DATABASE:-aceite}
+      POSTGRES_USER: ${DB_USERNAME:-aceite_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-aceite_pass}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U aceite_user -d aceite"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-aceite_user} -d ${DB_DATABASE:-aceite}"]
       interval: 5s
       timeout: 5s
       retries: 5
