@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,13 +25,10 @@ class Movimientos extends Component
     {
         $keyWord = '%' . $this->keyWord . '%';
 
-
         return view('livewire.movimientos.view', [
             'movimientos' => Movimiento::latest()
                 ->orWhere('cliente_id', 'LIKE', $keyWord)
-                //->orWhere('tipo_mov', 'LIKE', $keyWord)
                 ->orWhere('detalle', 'LIKE', $keyWord)
-                //->orWhere('cantidad', 'LIKE', $keyWord)
                 ->orWhere('fecha', 'LIKE', $keyWord)
                 ->orWhereHas('cliente', function ($query) use ($keyWord) {
                     $query->where('nombre', 'LIKE', $keyWord);
@@ -84,7 +81,7 @@ class Movimientos extends Component
         ]);
 
         $this->resetInput();
-        $this->emit('closeModal');
+        $this->dispatch('closeModal');
         session()->flash('message', 'Movimiento Successfully created.');
     }
 
@@ -124,6 +121,7 @@ class Movimientos extends Component
 
             $this->resetInput();
             $this->updateMode = false;
+            $this->dispatch('closeModal');
             session()->flash('message', 'Movimiento Successfully updated.');
         }
     }

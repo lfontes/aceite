@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aceite_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - APP_NAME=Aceite
+      - APP_ENV=local
+      - APP_KEY=base64:/VDqx9Y/bcpx7CyYGxQXI53y2p8Je8cKsOviC7cqMoA=
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=aceite
+      - DB_USERNAME=aceite_user
+      - DB_PASSWORD=aceite_pass
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - aceite_network
+
+  db:
+    image: postgres:15-alpine
+    container_name: aceite_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aceite
+      POSTGRES_USER: aceite_user
+      POSTGRES_PASSWORD: aceite_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aceite_user -d aceite"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aceite_network
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  aceite_network:
+    driver: bridge

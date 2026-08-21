@@ -9,22 +9,15 @@
 
 	<title>@hasSection('title') @yield('title') | @endif {{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts & Styles -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
-	 @livewireStyles
+    @livewireStyles
 </head>
 <body>
     <div id="app">
@@ -104,22 +97,24 @@
     </div>
     @livewireScripts
 <script type="text/javascript">
-	window.livewire.on('closeModal', () => {
-		if (window.$ && typeof $('#createDataModal').modal === 'function') {
-			$('#createDataModal').modal('hide');
-			$('#updateModal').modal('hide');
-		}
-		const m1 = document.getElementById('createDataModal');
-		if (m1 && window.bootstrap) {
-			const inst1 = bootstrap.Modal.getInstance(m1);
-			if (inst1) inst1.hide();
-		}
-		const m2 = document.getElementById('updateModal');
-		if (m2 && window.bootstrap) {
-			const inst2 = bootstrap.Modal.getInstance(m2);
-			if (inst2) inst2.hide();
-		}
-	});
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('closeModal', () => {
+            if (window.$ && typeof $('#createDataModal').modal === 'function') {
+                $('#createDataModal').modal('hide');
+                $('#updateModal').modal('hide');
+            }
+            const m1 = document.getElementById('createDataModal');
+            if (m1 && window.bootstrap) {
+                const inst1 = bootstrap.Modal.getInstance(m1);
+                if (inst1) inst1.hide();
+            }
+            const m2 = document.getElementById('updateModal');
+            if (m2 && window.bootstrap) {
+                const inst2 = bootstrap.Modal.getInstance(m2);
+                if (inst2) inst2.hide();
+            }
+        });
+    });
 </script>
 </body>
 </html>

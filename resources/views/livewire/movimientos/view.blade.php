@@ -13,7 +13,7 @@
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
 						@endif
 						<div class="md-col-6">
-							<input wire:model='keyWord' type="text" class="form-control md-col-6 d-print-none" name="search" id="search" placeholder="Buscar por nombre">
+							<input wire:model.live.debounce.300ms='keyWord' type="text" class="form-control md-col-6 d-print-none" name="search" id="search" placeholder="Buscar por nombre">
 						</div>
 						<div class="btn btn-sm btn-info d-print-none" data-toggle="modal" data-target="#createDataModal" data-bs-toggle="modal" data-bs-target="#createDataModal">
 						<i class="fa fa-plus"></i>  Agregar Movimiento

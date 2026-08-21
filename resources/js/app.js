@@ -1,3 +1,3 @@
-require('./bootstrap');
-let Pikaday = require ('pikaday/pikaday');
+import './bootstrap';
+import Pikaday from 'pikaday';
 window.Pikaday = Pikaday;
