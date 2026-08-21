@@ -16,7 +16,7 @@
               <select wire:model="cliente_id" name="cliente" class="form-control">
                 <option value=""  selected>Elija un cliente</option>
                 @foreach($clientes as $cliente)
-                    <option value={{ $cliente->id }}>{{ $cliente->nombre }}</option>
+                    <option value={{ $cliente->id }}>{{ $cliente->cod_fca }} - {{ $cliente->nombre }}</option>
                 @endforeach
             </select>
                 <input wire:model="cliente_id" type="hidden" class="form-control" id="cliente_id" placeholder="Cliente Id">@error('cliente_id') <span class="error text-danger">{{ $message }}</span> @enderror

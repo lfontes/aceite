@@ -29,8 +29,8 @@
 						<thead class="thead">
 							<tr> 
 								<th style="width: 80px;">Cliente Id</th>
-								<th style="width: 80px;">FCA</th>
-								<th >Nombre</th>
+								<th style="width: 80px;">Cod-FCA</th>
+								<th>Nombre</th>
 								<th>Tipo Mov</th>
 								<th>Detalle</th>
 								<th>Cantidad</th>
@@ -42,9 +42,9 @@
 							@foreach($movimientos as $row)
 							<tr>
 								<td style="text-align: center;">{{ $row->cliente_id }}</td>
-								<td style="text-align: center;"><em>{{ $row->cliente->cod_fca }}</em></td>
+								<td style="text-align: center;">{{ $row->cliente->cod_fca }}</td>
 								<td>{{ $row->cliente->nombre }}</td>
-								<td>{{ $row->tipo_mov }}</td>
+								<td style="text-align: center">{{ $row->tipo_mov }}</td>
 								<td>{{ $row->detalle }}</td>
 								<td style="text-align: right;">{{ $row->cantidad }}</td>
 								<td style="text-align: right;">{{ $row->fecha }}</td>													
@@ -67,7 +67,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><strong>TOTAL</strong></td>
+								<td><strong>TOTAL:</strong></td>
 								<td style="text-align: right;"><strong>{{ $tott }} </strong> </td>
 							</tr>
 						</tfoot>
