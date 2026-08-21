@@ -13,33 +13,108 @@ class Movimientos extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $cliente_id, $tipo_mov, $detalle, $cantidad, $fecha;
+
+    // Model and form properties
+    public $selected_id, $cliente_id, $tipo_mov, $detalle, $cantidad, $fecha;
     public $updateMode = false;
 
-    public function subtotal()
+    // Filter properties
+    public $keyWord = '';
+    public $filtro_cliente_id = '';
+    public $filtro_tipo_mov = '';
+    public $fecha_desde = '';
+    public $fecha_hasta = '';
+
+    public function updatedKeyWord()
     {
-        return DB::table('movimientos')->sum('cantidad');
+        $this->resetPage();
+    }
+
+    public function updatedFiltroClienteId()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFiltroTipoMov()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFechaDesde()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFechaHasta()
+    {
+        $this->resetPage();
+    }
+
+    public function limpiarFiltros()
+    {
+        $this->keyWord = '';
+        $this->filtro_cliente_id = '';
+        $this->filtro_tipo_mov = '';
+        $this->fecha_desde = '';
+        $this->fecha_hasta = '';
+        $this->resetPage();
+    }
+
+    public function getMovimientosQuery()
+    {
+        $query = Movimiento::with('cliente');
+
+        // Filter by Client
+        if (!empty($this->filtro_cliente_id)) {
+            $query->where('cliente_id', $this->filtro_cliente_id);
+        }
+
+        // Filter by Movement Type (Ingreso / Salida)
+        if (!empty($this->filtro_tipo_mov)) {
+            $query->where('tipo_mov', $this->filtro_tipo_mov);
+        }
+
+        // Filter by Date Range (Desde / Hasta)
+        if (!empty($this->fecha_desde)) {
+            $query->whereDate('fecha', '>=', $this->fecha_desde);
+        }
+
+        if (!empty($this->fecha_hasta)) {
+            $query->whereDate('fecha', '<=', $this->fecha_hasta);
+        }
+
+        // Search Keyword
+        if (!empty($this->keyWord)) {
+            $keyWord = '%' . trim($this->keyWord) . '%';
+            $query->where(function ($q) use ($keyWord) {
+                $q->where('detalle', 'ILIKE', $keyWord)
+                  ->orWhere('tipo_mov', 'ILIKE', $keyWord)
+                  ->orWhere('cliente_id', 'ILIKE', $keyWord)
+                  ->orWhereHas('cliente', function ($cq) use ($keyWord) {
+                      $cq->where('nombre', 'ILIKE', $keyWord)
+                         ->orWhere('cod_fca', 'ILIKE', $keyWord);
+                  });
+            });
+        }
+
+        return $query;
     }
 
     public function render()
     {
-        $keyWord = '%' . $this->keyWord . '%';
+        $baseQuery = $this->getMovimientosQuery();
+
+        $tott = (clone $baseQuery)->sum('cantidad');
+
+        $movimientos = (clone $baseQuery)
+            ->orderBy('fecha', 'desc')
+            ->orderBy('id', 'desc')
+            ->paginate(25);
 
         return view('livewire.movimientos.view', [
-            'movimientos' => Movimiento::latest()
-                ->orWhere('cliente_id', 'LIKE', $keyWord)
-                ->orWhere('detalle', 'LIKE', $keyWord)
-                ->orWhere('fecha', 'LIKE', $keyWord)
-                ->orWhereHas('cliente', function ($query) use ($keyWord) {
-                    $query->where('nombre', 'LIKE', $keyWord);
-                })
-                ->paginate(25),
+            'movimientos' => $movimientos,
             'clientes' => Cliente::orderBy('nombre', 'asc')->get(),
-            'tott' => Movimiento::where('cliente_id', 'LIKE', $keyWord)
-                ->orWhereHas('cliente', function ($query) use ($keyWord) {
-                    $query->where('nombre', 'LIKE', $keyWord);
-                })
-                ->sum('cantidad')
+            'tott' => number_format($tott, 2, '.', ''),
         ]);
     }
 
