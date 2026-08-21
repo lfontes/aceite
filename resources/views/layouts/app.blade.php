@@ -34,7 +34,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -76,15 +76,15 @@
                             @endif
                         @else
                                 <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Salir') }}
+                                         {{ __('Salir') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -105,7 +105,20 @@
     @livewireScripts
 <script type="text/javascript">
 	window.livewire.on('closeModal', () => {
-		$('#createDataModal').modal('hide');
+		if (window.$ && typeof $('#createDataModal').modal === 'function') {
+			$('#createDataModal').modal('hide');
+			$('#updateModal').modal('hide');
+		}
+		const m1 = document.getElementById('createDataModal');
+		if (m1 && window.bootstrap) {
+			const inst1 = bootstrap.Modal.getInstance(m1);
+			if (inst1) inst1.hide();
+		}
+		const m2 = document.getElementById('updateModal');
+		if (m2 && window.bootstrap) {
+			const inst2 = bootstrap.Modal.getInstance(m2);
+			if (inst2) inst2.hide();
+		}
 	});
 </script>
 </body>
