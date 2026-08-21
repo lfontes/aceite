@@ -15,6 +15,14 @@ class Cliente extends Model
 
     protected $fillable = ['cod_fca','nombre','domicilio','telefono','email','contacto','rut'];
 
+    protected $attributes = [
+        'domicilio' => '',
+        'telefono' => '',
+        'email' => '',
+        'contacto' => '',
+        'rut' => '',
+    ];
+
    
 
     /**

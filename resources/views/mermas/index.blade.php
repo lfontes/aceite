@@ -11,34 +11,40 @@
                 <form name="mermas-form" id="mermas-form" method="post" action="{{ url('aplicaratodos') }}">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="Porcentaje %"><strong>Porcentaje %</strong></label>
-                        <input type="number" class="form-control col-md-2" id="porcentaje" name="porcentaje"
-                            placeholder="Ingrese %">
-                        @error('poncentaje')
+                    <div class="form-group mb-3">
+                        <label for="porcentaje"><strong>Porcentaje %</strong></label>
+                        <input type="number" step="0.01" min="0.01" max="100" class="form-control col-md-2" id="porcentaje" name="porcentaje"
+                            value="{{ old('porcentaje') }}" placeholder="Ingrese %">
+                        @error('porcentaje')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="cliente"><strong>Cliente</strong></label>
-                        <select multiple name="multi_cliente[]" class="form-control col-md-4" style="height: 200px;">
+                        <select multiple name="multi_cliente[]" id="cliente" class="form-control col-md-4" style="height: 200px;">
                             @foreach ($clientes as $cliente)
-                                <option value={{ $cliente->id }}>{{ $cliente->nombre }}</option>
+                                <option value="{{ $cliente->id }}" {{ (is_array(old('multi_cliente')) && in_array($cliente->id, old('multi_cliente'))) ? 'selected' : '' }}>{{ $cliente->nombre }}</option>
                             @endforeach
                         </select>
-                        <p>(Seleccionar varios con "CTRL+Click")</p>
+                        <small class="form-text text-muted d-block">(Seleccionar varios con "CTRL+Click")</small>
+                        @error('multi_cliente')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="todos"><strong>Aplicar a todos los clientes</strong></label>
-                        <input type="checkbox" name="todos" id="todos">
+                        <input type="checkbox" name="todos" id="todos" {{ old('todos') ? 'checked' : '' }}>
+                        @error('todos')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="detalle"><strong>Detalle:</strong></label>
-                        <input wire:model="detalle" type="text" name="detalle" class="form-control col-md-10" id="detalle"
-                            placeholder="Detalle">
+                        <input type="text" name="detalle" class="form-control col-md-10" id="detalle"
+                            value="{{ old('detalle') }}" placeholder="Detalle">
                         @error('detalle')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror

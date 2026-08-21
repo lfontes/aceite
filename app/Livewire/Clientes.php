@@ -14,20 +14,30 @@ class Clientes extends Component
     public $selected_id, $keyWord, $cod_fca, $nombre, $domicilio, $telefono, $email, $contacto, $rut;
     public $updateMode = false;
 
+    public function updatedKeyWord()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        $keyWord = '%' . $this->keyWord . '%';
+        $query = Cliente::query();
+
+        if (!empty($this->keyWord)) {
+            $keyWord = '%' . trim($this->keyWord) . '%';
+            $query->where(function ($q) use ($keyWord) {
+                $q->where('cod_fca', 'ILIKE', $keyWord)
+                  ->orWhere('nombre', 'ILIKE', $keyWord)
+                  ->orWhere('domicilio', 'ILIKE', $keyWord)
+                  ->orWhere('telefono', 'ILIKE', $keyWord)
+                  ->orWhere('email', 'ILIKE', $keyWord)
+                  ->orWhere('contacto', 'ILIKE', $keyWord)
+                  ->orWhere('rut', 'ILIKE', $keyWord);
+            });
+        }
+
         return view('livewire.clientes.view', [
-            'clientes' => Cliente::latest()
-                ->orWhere('cod_fca', 'LIKE', $keyWord)
-                ->orWhere('nombre', 'LIKE', $keyWord)
-                ->orWhere('domicilio', 'LIKE', $keyWord)
-                ->orWhere('telefono', 'LIKE', $keyWord)
-                ->orWhere('email', 'LIKE', $keyWord)
-                ->orWhere('contacto', 'LIKE', $keyWord)
-                ->orWhere('rut', 'LIKE', $keyWord)
-                ->orderBy('nombre', 'asc')
-                ->paginate(10),
+            'clientes' => $query->orderBy('nombre', 'asc')->paginate(10),
         ]);
     }
 

@@ -89,7 +89,7 @@ class Movimientos extends Component
             $query->where(function ($q) use ($keyWord) {
                 $q->where('detalle', 'ILIKE', $keyWord)
                   ->orWhere('tipo_mov', 'ILIKE', $keyWord)
-                  ->orWhere('cliente_id', 'ILIKE', $keyWord)
+                  ->orWhereRaw('CAST(cliente_id AS TEXT) ILIKE ?', [$keyWord])
                   ->orWhereHas('cliente', function ($cq) use ($keyWord) {
                       $cq->where('nombre', 'ILIKE', $keyWord)
                          ->orWhere('cod_fca', 'ILIKE', $keyWord);
@@ -147,6 +147,8 @@ class Movimientos extends Component
         $cantidad = floatval($this->cantidad);
         if ($this->tipo_mov == "Salida" && $cantidad > 0) {
             $cantidad = $cantidad * -1;
+        } elseif ($this->tipo_mov == "Ingreso" && $cantidad < 0) {
+            $cantidad = abs($cantidad);
         }
 
         Movimiento::create([
