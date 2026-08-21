@@ -39,6 +39,7 @@ class Clientes extends Component
 
     private function resetInput()
     {
+        $this->selected_id = null;
         $this->cod_fca = null;
         $this->nombre = null;
         $this->domicilio = null;
@@ -53,25 +54,26 @@ class Clientes extends Component
         $this->validate([
             'cod_fca' => 'required',
             'nombre' => 'required',
-            'domicilio' => 'required',
-            'telefono' => 'required',
-            'email' => 'required',
-            'contacto' => 'required',
+            'domicilio' => 'nullable',
+            'telefono' => 'nullable',
+            'email' => 'nullable',
+            'contacto' => 'nullable',
+            'rut' => 'nullable',
         ]);
 
         Cliente::create([
-            'cod_fca' => $this->cod_fca,
-            'nombre' => $this->nombre,
-            'domicilio' => $this->domicilio,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'contacto' => $this->contacto,
-            'rut' => $this->rut
+            'cod_fca' => $this->cod_fca ?? '',
+            'nombre' => $this->nombre ?? '',
+            'domicilio' => $this->domicilio ?? '',
+            'telefono' => $this->telefono ?? '',
+            'email' => $this->email ?? '',
+            'contacto' => $this->contacto ?? '',
+            'rut' => $this->rut ?? ''
         ]);
 
         $this->resetInput();
         $this->dispatch('closeModal');
-        session()->flash('message', 'Cliente Successfully created.');
+        session()->flash('message', 'Cliente creado con éxito.');
     }
 
     public function edit($id)
@@ -88,6 +90,7 @@ class Clientes extends Component
         $this->rut = $record->rut;
 
         $this->updateMode = true;
+        $this->dispatch('showUpdateModal');
     }
 
     public function update()
@@ -95,36 +98,38 @@ class Clientes extends Component
         $this->validate([
             'cod_fca' => 'required',
             'nombre' => 'required',
-            'domicilio' => 'required',
-            'telefono' => 'required',
-            'email' => 'required',
-            'contacto' => 'required',
+            'domicilio' => 'nullable',
+            'telefono' => 'nullable',
+            'email' => 'nullable',
+            'contacto' => 'nullable',
+            'rut' => 'nullable',
         ]);
 
         if ($this->selected_id) {
-            $record = Cliente::find($this->selected_id);
+            $record = Cliente::findOrFail($this->selected_id);
             $record->update([
-                'cod_fca' => $this->cod_fca,
-                'nombre' => $this->nombre,
-                'domicilio' => $this->domicilio,
-                'telefono' => $this->telefono,
-                'email' => $this->email,
-                'contacto' => $this->contacto,
-                'rut' => $this->rut
+                'cod_fca' => $this->cod_fca ?? '',
+                'nombre' => $this->nombre ?? '',
+                'domicilio' => $this->domicilio ?? '',
+                'telefono' => $this->telefono ?? '',
+                'email' => $this->email ?? '',
+                'contacto' => $this->contacto ?? '',
+                'rut' => $this->rut ?? ''
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
             $this->dispatch('closeModal');
-            session()->flash('message', 'Cliente Successfully updated.');
+            session()->flash('message', 'Cliente actualizado con éxito.');
         }
     }
 
     public function destroy($id)
     {
         if ($id) {
-            $record = Cliente::where('id', $id);
+            $record = Cliente::findOrFail($id);
             $record->delete();
+            session()->flash('message', 'Cliente eliminado.');
         }
     }
 }

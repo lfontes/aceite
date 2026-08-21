@@ -51,6 +51,7 @@ class Movimientos extends Component
 
     private function resetInput()
     {
+        $this->selected_id = null;
         $this->cliente_id = null;
         $this->tipo_mov = null;
         $this->detalle = null;
@@ -64,25 +65,26 @@ class Movimientos extends Component
             'cliente_id' => 'required',
             'tipo_mov' => 'required',
             'detalle' => 'required',
-            'cantidad' => 'required',
-            'fecha' => 'required',
+            'cantidad' => 'required|numeric',
+            'fecha' => 'required|date',
         ]);
 
-        if ($this->tipo_mov == "Salida") {
-            $this->cantidad = $this->cantidad * -1;
+        $cantidad = floatval($this->cantidad);
+        if ($this->tipo_mov == "Salida" && $cantidad > 0) {
+            $cantidad = $cantidad * -1;
         }
 
         Movimiento::create([
             'cliente_id' => $this->cliente_id,
             'tipo_mov' => $this->tipo_mov,
             'detalle' => $this->detalle,
-            'cantidad' =>  $this->cantidad,
+            'cantidad' =>  $cantidad,
             'fecha' => $this->fecha
         ]);
 
         $this->resetInput();
         $this->dispatch('closeModal');
-        session()->flash('message', 'Movimiento Successfully created.');
+        session()->flash('message', 'Movimiento creado con éxito.');
     }
 
     public function edit($id)
@@ -93,10 +95,11 @@ class Movimientos extends Component
         $this->cliente_id = $record->cliente_id;
         $this->tipo_mov = $record->tipo_mov;
         $this->detalle = $record->detalle;
-        $this->cantidad = $record->cantidad;
+        $this->cantidad = abs($record->cantidad);
         $this->fecha = $record->fecha;
 
         $this->updateMode = true;
+        $this->dispatch('showUpdateModal');
     }
 
     public function update()
@@ -105,32 +108,40 @@ class Movimientos extends Component
             'cliente_id' => 'required',
             'tipo_mov' => 'required',
             'detalle' => 'required',
-            'cantidad' => 'required',
-            'fecha' => 'required',
+            'cantidad' => 'required|numeric',
+            'fecha' => 'required|date',
         ]);
 
         if ($this->selected_id) {
-            $record = Movimiento::find($this->selected_id);
+            $cantidad = floatval($this->cantidad);
+            if ($this->tipo_mov == "Salida" && $cantidad > 0) {
+                $cantidad = $cantidad * -1;
+            } elseif ($this->tipo_mov == "Ingreso" && $cantidad < 0) {
+                $cantidad = abs($cantidad);
+            }
+
+            $record = Movimiento::findOrFail($this->selected_id);
             $record->update([
                 'cliente_id' => $this->cliente_id,
                 'tipo_mov' => $this->tipo_mov,
                 'detalle' => $this->detalle,
-                'cantidad' => $this->cantidad,
+                'cantidad' => $cantidad,
                 'fecha' => $this->fecha
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
             $this->dispatch('closeModal');
-            session()->flash('message', 'Movimiento Successfully updated.');
+            session()->flash('message', 'Movimiento actualizado con éxito.');
         }
     }
 
     public function destroy($id)
     {
         if ($id) {
-            $record = Movimiento::where('id', $id);
+            $record = Movimiento::findOrFail($id);
             $record->delete();
+            session()->flash('message', 'Movimiento eliminado.');
         }
     }
 }

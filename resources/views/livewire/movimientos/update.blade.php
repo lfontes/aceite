@@ -3,40 +3,51 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Movimiento</h5>
-                <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                    <span wire:click.prevent="cancel()" aria-hidden="true">×</span>
-                </button>
+                <h5 class="modal-title" id="updateModalLabel">Editar Movimiento</h5>
+                <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" wire:click.prevent="cancel()"></button>
             </div>
             <div class="modal-body">
                 <form>
-					<input type="hidden" wire:model="selected_id">
-            <div class="form-group">
-                <label for="cliente_id"></label>
-                <input wire:model="cliente_id" type="text" class="form-control" id="cliente_id" placeholder="Cliente Id">@error('cliente_id') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="tipo_mov"></label>
-                <input wire:model="tipo_mov" type="text" class="form-control" id="tipo_mov" placeholder="Tipo Mov">@error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="detalle"></label>
-                <input wire:model="detalle" type="text" class="form-control" id="detalle" placeholder="Detalle">@error('detalle') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="cantidad"></label>
-                <input wire:model="cantidad" type="text" class="form-control" id="cantidad" placeholder="Cantidad">@error('cantidad') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="fecha"></label>
-                <input wire:model="fecha" type="text" class="form-control" id="fecha" placeholder="Fecha">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-
+                    <input type="hidden" wire:model="selected_id" value="{{ $selected_id }}">
+                    <div class="form-group mb-3">
+                        <label for="update_cliente_id" class="font-weight-bold">Cliente</label>
+                        <select wire:model="cliente_id" id="update_cliente_id" name="cliente_id" class="form-control">
+                            <option value="">Elija un cliente</option>
+                            @foreach($clientes as $cliente)
+                                <option value="{{ $cliente->id }}" @if($cliente_id == $cliente->id) selected @endif>{{ $cliente->cod_fca }} - {{ $cliente->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('cliente_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="update_tipo_mov" class="font-weight-bold">Tipo de Movimiento</label>
+                        <select wire:model="tipo_mov" class="form-control" id="update_tipo_mov">
+                            <option value="">Elija tipo de movimiento</option>
+                            <option value="Ingreso" @if($tipo_mov == 'Ingreso') selected @endif>Ingreso</option>
+                            <option value="Salida" @if($tipo_mov == 'Salida') selected @endif>Salida</option>
+                        </select>
+                        @error('tipo_mov') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="update_detalle" class="font-weight-bold">Detalle</label>
+                        <input wire:model="detalle" type="text" class="form-control" id="update_detalle" placeholder="Detalle" value="{{ $detalle }}">
+                        @error('detalle') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="update_cantidad" class="font-weight-bold">Cantidad</label>
+                        <input wire:model="cantidad" type="number" step="0.01" class="form-control" id="update_cantidad" placeholder="Cantidad" value="{{ $cantidad }}">
+                        @error('cantidad') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="update_fecha" class="font-weight-bold">Fecha</label>
+                        <input wire:model="fecha" type="date" class="form-control" id="update_fecha" placeholder="Fecha" value="{{ $fecha }}">
+                        @error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal" data-bs-dismiss="modal">Save</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-primary">Guardar Cambios</button>
             </div>
        </div>
     </div>

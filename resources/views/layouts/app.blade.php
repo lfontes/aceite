@@ -98,6 +98,16 @@
     @livewireScripts
 <script type="text/javascript">
     document.addEventListener('livewire:init', () => {
+        Livewire.on('showUpdateModal', () => {
+            const updateModalEl = document.getElementById('updateModal');
+            if (updateModalEl && window.bootstrap) {
+                const inst = bootstrap.Modal.getOrCreateInstance(updateModalEl);
+                inst.show();
+            } else if (window.$ && typeof $('#updateModal').modal === 'function') {
+                $('#updateModal').modal('show');
+            }
+        });
+
         Livewire.on('closeModal', () => {
             if (window.$ && typeof $('#createDataModal').modal === 'function') {
                 $('#createDataModal').modal('hide');
